@@ -3,8 +3,7 @@ import ReactQuill, { Quill } from 'react-quill';
 import { onClickSave } from '../js/onSubmit';
 import FormController from '../js/FormController.js';
 import { getStandardToolbarOptions } from '../js/toolbarOptions.js';
-import { overrideImageHandlerToAcceptPaths } from '../js/quillHandlers';
-//import { overrideImageHandlerToAcceptPaths } from '../js/quillHandlers.js';
+import '../css/Editor.css';
 
 class Editor extends Component {
     constructor(){
@@ -21,8 +20,9 @@ class Editor extends Component {
 
     render() {
         return (
-            <div>
+            <div>     {/* ??? */}
                 <form
+                    id="editor-form"
                     onSubmit={this.handleSubmit}        
                 >
                     <label>Standalone TextEditor</label>
@@ -30,6 +30,7 @@ class Editor extends Component {
                         id="title-field"
                         type="text"
                         value={this.state.title}
+                        placeholder="title"
                         onChange={event => this.setState({title: event.target.value})}
                     />
 
@@ -38,6 +39,7 @@ class Editor extends Component {
                     >
                     </div>
 
+                    <label>Upload first!</label>
                     <button
                         id="save-button"
                         type="submit"
