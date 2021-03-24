@@ -19,7 +19,18 @@ const overrideImageHandlerToAcceptPaths = (quill) =>{
         quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
     }    
 }
+
+const loadContentFromLocalStorage = (editor) =>{
+    const localContent = localStorage.getItem("content");
+    if(localContent.length){
+        const delta = JSON.parse(localContent);
+        editor.setContents(delta);
+    }
+}
+
 export{
     overrideImageHandler,
-    overrideImageHandlerToAcceptPaths
+    overrideImageHandlerToAcceptPaths,
+    loadContentFromLocalStorage
 }
+

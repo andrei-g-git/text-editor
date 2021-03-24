@@ -5,8 +5,10 @@
 }
 
 #quill-editor{
-    min-width: 60rem;
-    min-height: 40rem;
+    min-width: 30rem;
+    min-height: 18rem;
+    width: 60rem;
+    height: 40rem;
 }
 
 #title-field, #quill-editor, #editor-form label {

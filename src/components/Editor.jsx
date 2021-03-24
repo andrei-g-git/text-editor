@@ -3,6 +3,7 @@ import ReactQuill, { Quill } from 'react-quill';
 import { onClickSave } from '../js/onSubmit';
 import FormController from '../js/FormController.js';
 import { getStandardToolbarOptions } from '../js/toolbarOptions.js';
+import { loadContentFromLocalStorage } from '../js/quillHandlers.js';
 import '../css/Editor.css';
 
 class Editor extends Component {
@@ -11,7 +12,8 @@ class Editor extends Component {
 
         this.state = {
             title: "",
-            consumedDownloadLink: true
+            consumedDownloadLink: true,
+            consumedExportToken: true
         }
         this.quillEditor = null;
         this.downloadLink = null;
@@ -25,7 +27,6 @@ class Editor extends Component {
                     id="editor-form"
                     onSubmit={this.handleSubmit}        
                 >
-                    <label>Standalone TextEditor</label>
                     <input
                         id="title-field"
                         type="text"
@@ -44,7 +45,7 @@ class Editor extends Component {
                         id="save-button"
                         type="submit"
                     >
-                        Save
+                        Export
 
                         <a 
                             id="save-button-link"
@@ -70,7 +71,17 @@ class Editor extends Component {
         );
 
         let newToolbar = this.quillEditor.getModule('toolbar');
-        newToolbar.addHandler('image', this.overrideImageHandlerToAcceptPaths)
+        newToolbar.addHandler('image', this.overrideImageHandlerToAcceptPaths);
+
+
+        loadContentFromLocalStorage(this.quillEditor);
+
+
+        // document.addEventListener("keydown", function(event){ /////already has this functionality. also don't long press ctrl z or do anything continuously or it breaks
+        //     if(event.ctrlKey && event.key === 'z'){
+        //         loadContentFromLocalStorage(this.quillEditor);
+        //     }
+        // });
     }
     
     componentDidUpdate(){
@@ -83,7 +94,16 @@ class Editor extends Component {
                 consumedDownloadLink: true
             })
         }
+
+        const delta = this.quillEditor.getContents();
+        const saveData = JSON.stringify(delta);
+        localStorage.setItem("content", saveData);
+
+        if(! this.state.consumedExportToken){
+            //something about document find submit .click() or some shit this is too convoluted I'm ending this
+        }
     }
+
     handleSubmit = event => {
         event.preventDefault();
     
@@ -102,6 +122,14 @@ class Editor extends Component {
             this.quillEditor.insertEmbed(range.index, 'image', value, Quill.sources.USER);
         }    
     }
+
+    // loadContentFromLocalStorage = (editor) =>{
+    //     const localContent = localStorage.getItem("content");
+    //     if(localContent.length){
+    //         const delta = JSON.parse(localContent);
+    //         this.quillEditor.setContents(delta);
+    //     }
+    // }
 }
 
 export default Editor;

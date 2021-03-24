@@ -1,0 +1,44 @@
+#main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+#upload-button{
+    margin-top: 1rem;
+}
+
+#menu-wrapper{
+    align-self: flex-end;
+    position: relative;
+}
+
+#hamburger-menu{
+    width: 1.5rem;   
+    margin-right: 1rem;
+}
+
+#hamburger-menu:hover{
+    filter: invert(0.3);
+}
+
+#main-context{
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: solid 1px lightgray;
+    right: 1rem;
+    background-color: white;
+    box-shadow: 3px 3px 8px -5px gray;
+}
+
+.main-menu-item{
+    margin: 0rem 0.2rem;
+    padding: 0rem 0.5rem;
+}
+
+.main-menu-item:hover{
+    background-color: lightgray;
+}
